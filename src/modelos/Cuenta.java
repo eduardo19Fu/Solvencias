@@ -267,4 +267,9 @@ public class Cuenta extends Persona{
         CCuenta cuenta = new CCuenta();
         return cuenta.consultarCuentas(nombre, apellido);
     }
+    
+    public int getMora(String clave){
+        CCuenta cuenta = new CCuenta();
+        return cuenta.conteoMora(clave);
+    }
 }

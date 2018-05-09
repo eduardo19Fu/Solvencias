@@ -33,13 +33,10 @@ public class CCuenta {
                     "inner join persona p on c.idpersona = p.idpersona " +
                     "where p.nombre like ? and p.apellido like ? ";
         try {
-               System.out.println("aqui vas 1");
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, "%" + nombre + "%");
             ps.setString(2, "%" + apellido + "%");
-            System.out.println("aqui vas 2");
             ResultSet rs = ps.executeQuery();
-               System.out.println("aqui vas 3");
             while(rs.next()){
                 cuenta = new Cuenta();
                 cuenta.setIdcuenta(rs.getInt(1));
@@ -48,10 +45,33 @@ public class CCuenta {
                 cuenta.setNo_contador(rs.getString(4));
                 lista.add(cuenta);
             }
+            rs.close();
+            ps.close();
+            connection.close();
             return lista;
         } catch (SQLException ex) {
             Logger.getLogger(CCuenta.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }
+    }
+    
+    public int conteoMora(String clave){
+        int mora;
+        String sql = "select get_meses_mora(?)";
+        
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, clave);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            mora = rs.getInt(1);
+            rs.close();
+            ps.close();
+            connection.close();
+            return mora;
+        } catch (SQLException ex) {
+            Logger.getLogger(CCuenta.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
         }
     }
 }

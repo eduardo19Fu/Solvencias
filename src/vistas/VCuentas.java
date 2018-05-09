@@ -8,9 +8,12 @@ package vistas;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import modelos.Cuenta;
 
 /**
@@ -25,6 +28,7 @@ public class VCuentas extends javax.swing.JFrame {
     public VCuentas() {
         initComponents();
         this.setLocationRelativeTo(null);
+        configuracionColumnas(tablaCuentas);
     }
 
     /**
@@ -115,22 +119,21 @@ public class VCuentas extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66)
-                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(210, 210, 210))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +158,7 @@ public class VCuentas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID Cuenta", "Nombre", "Clave", "No. de Contador"
+                "ID Cuenta", "Nombre", "Clave", "No. de Contador", "Mora"
             }
         ));
         jScrollPane1.setViewportView(tablaCuentas);
@@ -165,8 +168,8 @@ public class VCuentas extends javax.swing.JFrame {
         tblCuentasLayout.setHorizontalGroup(
             tblCuentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tblCuentasLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
         tblCuentasLayout.setVerticalGroup(
@@ -183,13 +186,11 @@ public class VCuentas extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(tblCuentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(tblCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,8 +276,8 @@ public class VCuentas extends javax.swing.JFrame {
 
     private void cargarCuentas(){
         Cuenta cuenta = new Cuenta();
-        String[] titulos = {"ID Cuenta","Nombre","Clave","No. de Contador"};
-        Object[] datos = new Object[4];
+        String[] titulos = {"ID Cuenta","Nombre","Clave","No. de Contador","Mora"};
+        Object[] datos = new Object[5];
         DefaultTableModel modelo = new DefaultTableModel(null,titulos);
         List<Cuenta> lista = cuenta.consultarCuentas(txtNombre.getText(), txtApellido.getText());
         for(int i = 0; i < lista.size(); i++){
@@ -284,8 +285,25 @@ public class VCuentas extends javax.swing.JFrame {
             datos[1] = lista.get(i).getNombre();
             datos[2] = lista.get(i).getClave();
             datos[3] = lista.get(i).getNo_contador();
+            datos[4] = cuenta.getMora(lista.get(i).getClave());
             modelo.addRow(datos);
         }
         tablaCuentas.setModel(modelo);
+        configuracionColumnas(tablaCuentas);
+    }
+    
+    private void configuracionColumnas(JTable tabla){ 
+        // Configuración del tamaño que ocuparán las columnas que muestran la información
+        // de las cuentas disponibles bajo el nombre ingresado.
+        tabla.getColumn("ID Cuenta").setPreferredWidth(30);
+        tabla.getColumn("Nombre").setPreferredWidth(250);
+        tabla.getColumn("Clave").setPreferredWidth(25);
+        tabla.getColumn("No. de Contador").setPreferredWidth(100);
+        tabla.getColumn("Mora").setPreferredWidth(25);
+        
+        DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+        // Indicamos la alineación que tendrán las columnas.
+        tcr.setHorizontalAlignment(SwingConstants.CENTER);
+        tabla.getColumnModel().getColumn(4).setCellRenderer(tcr);
     }
 }
