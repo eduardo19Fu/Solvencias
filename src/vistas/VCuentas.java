@@ -113,6 +113,11 @@ public class VCuentas extends javax.swing.JFrame {
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -221,6 +226,10 @@ public class VCuentas extends javax.swing.JFrame {
         cargarCuentas();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiar(tablaCuentas);
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -305,5 +314,16 @@ public class VCuentas extends javax.swing.JFrame {
         // Indicamos la alineación que tendrán las columnas.
         tcr.setHorizontalAlignment(SwingConstants.CENTER);
         tabla.getColumnModel().getColumn(4).setCellRenderer(tcr);
+    }
+    
+    private void limpiar(JTable tabla){
+        // Método encargado de limpiar los campos para realizar nuevas búsquedas.
+        String[] titulos = {"ID Cuenta","Nombre","Clave","No. de Contador","Mora"};
+        tabla.setModel(new DefaultTableModel(null,titulos));
+        configuracionColumnas(tabla);
+        
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtNombre.grabFocus();
     }
 }
