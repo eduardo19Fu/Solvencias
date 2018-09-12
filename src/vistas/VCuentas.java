@@ -288,7 +288,7 @@ public class VCuentas extends javax.swing.JFrame {
         String[] titulos = {"ID Cuenta","Nombre","Clave","No. de Contador","Mora"};
         Object[] datos = new Object[5];
         DefaultTableModel modelo = new DefaultTableModel(null,titulos);
-        List<Cuenta> lista = cuenta.consultarCuentas(txtNombre.getText(), txtApellido.getText());
+        List<Cuenta> lista = cuenta.consultarCuentas(txtNombre.getText().trim(), txtApellido.getText().trim());
         for(int i = 0; i < lista.size(); i++){
             datos[0] = lista.get(i).getIdcuenta();
             datos[1] = lista.get(i).getNombre();
